@@ -26,4 +26,4 @@
 - - [LZWDecompress（应用：LZW解压缩器）](https://github.com/SeanChan0901/DataStructure/tree/master/skipListAndHash/LZWDecompress)
 - [binaryTree（二叉树）]()
 - - [linkedBinaryTree（二叉树：链式描述）](https://github.com/SeanChan0901/DataStructure/tree/master/binaryTree)
-- - [booster（应用：信号放大器）](#data-strutures-in-c%e7%9b%ae%e5%bd%95)
+- - [booster（应用：信号放大器）](https://github.com/SeanChan0901/DataStructure/tree/master/binaryTree/booster)
