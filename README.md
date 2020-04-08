@@ -28,3 +28,5 @@
 - - [linkedBinaryTree（二叉树：链式描述）](https://github.com/SeanChan0901/DataStructure/tree/master/binaryTree)
 - - [booster（应用：信号放大器）](https://github.com/SeanChan0901/DataStructure/tree/master/binaryTree/booster)
 - - [unionFind（应用：并查集）](https://github.com/SeanChan0901/DataStructure/tree/master/binaryTree/uniteFindWithTree)
+- [priorityQueue（优先级队列）]()
+- - [Heap（堆）](https://github.com/SeanChan0901/DataStructure/tree/master/maxPriorityQueue/maxHeap)
