@@ -30,3 +30,4 @@
 - - [unionFind（应用：并查集）](https://github.com/SeanChan0901/DataStructure/tree/master/binaryTree/uniteFindWithTree)
 - [priorityQueue（优先级队列）]()
 - - [Heap（堆）](https://github.com/SeanChan0901/DataStructure/tree/master/maxPriorityQueue/maxHeap)
+- - [HBLT（左高树）](https://github.com/SeanChan0901/DataStructure/tree/master/maxPriorityQueue/maxHblt)
