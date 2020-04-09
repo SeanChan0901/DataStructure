@@ -33,4 +33,4 @@
 - - [minHeap（小根堆）](https://github.com/SeanChan0901/DataStructure/tree/master/maxPriorityQueue/minHeap)
 - - [HBLT（左高树）](https://github.com/SeanChan0901/DataStructure/tree/master/maxPriorityQueue/maxHblt)
 - - [lptSchedule（应用：机器调度NP）](https://github.com/SeanChan0901/DataStructure/tree/master/maxPriorityQueue/makeSchedule)
-- - [huffmanTree （应用：huffmanTree）](https://github.com/SeanChan0901/DataStructure/tree/master/maxPriorityQueue/huffmanTree)
+- - [huffmanTree （应用：霍夫曼编码）](https://github.com/SeanChan0901/DataStructure/tree/master/maxPriorityQueue/huffmanTree)
