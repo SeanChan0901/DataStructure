@@ -1,7 +1,5 @@
-#include "maxHeap.h"
-
 #include <iostream>
-
+#include "minHeap.h"
 using namespace std;
 int main() {
   // test initialize
@@ -12,12 +10,12 @@ int main() {
   completeBinaryTree[4] = 15;
   completeBinaryTree[5] = 21;
   completeBinaryTree[6] = 20;
-  maxHeap<int> aMaxHeap;
+  minHeap<int> aMinHeap;
   for (int i = 1; i <= 6; i++) {
     cout << "<" << completeBinaryTree[i] << "> ";
   }
-  aMaxHeap.initialzie(completeBinaryTree, 6);
-  cout << aMaxHeap << endl;
+  aMinHeap.initialize(completeBinaryTree, 6);
+  cout << aMinHeap << endl;
 
   // test heapSort
   int a[6];

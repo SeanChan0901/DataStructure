@@ -27,7 +27,8 @@ class linkedBinaryTree : public binaryTree<binaryTreeNode<E> > {
   void postOrder(void (*theVisit)(binaryTreeNode<E>*));
   // 成员遍历函数,接受一个访问函数，按照层次序遍历访问
   void levelOrder(void (*)(binaryTreeNode<E>*));
-  // 建树 左右子树建成一棵树
+
+  // 建树
   void makeTree(const E& element, linkedBinaryTree<E>& left,
                 linkedBinaryTree<E>& right);
 
@@ -72,6 +73,17 @@ class linkedBinaryTree : public binaryTree<binaryTreeNode<E> > {
 
 template <typename E>
 void (*linkedBinaryTree<E>::visit)(binaryTreeNode<E>*);
+
+template <class E>
+void linkedBinaryTree<E>::makeTree(const E& element, linkedBinaryTree<E>& left,
+                                   linkedBinaryTree<E>& right) {  // 建树
+  root = new binaryTreeNode<E>(element, left.root, right.root);
+  treeSize = left.treeSize + right.treeSize + 1;
+
+  // 消除原来的树，这样原来的树就不存在了
+  left.root = right.root = NULL;
+  left.treeSize = right.treeSize = 0;
+}
 
 // 成员遍历函数,接受一个访问函数，按照前序遍历访问
 template <typename E>
@@ -156,16 +168,4 @@ void linkedBinaryTree<E>::levelOrder(void (*visit)(binaryTreeNode<E>*)) {
     }
     q.pop();
   }
-};
-
-// 建树
-template <typename E>
-void linkedBinaryTree<E>::makeTree(const E& element, linkedBinaryTree<E>& left,
-                                   linkedBinaryTree<E>& right) {
-  root = new binaryTreeNode<E>(element, left.root, right.root);
-  treeSize = left.treeSize + right.treeSize + 1;
-
-  // 将左右两棵树删除（逻辑上删除）
-  left.root = right.root = NULL;
-  left.treeSize = right.treeSize = 0;
 };

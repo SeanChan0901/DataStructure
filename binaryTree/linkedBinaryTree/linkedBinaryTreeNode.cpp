@@ -1,6 +1,7 @@
 #include <iostream>
 
 #include "linkedBinaryTree.h"
+#include "binaryTreeNode.h"
 using namespace std;
 
 int main() {

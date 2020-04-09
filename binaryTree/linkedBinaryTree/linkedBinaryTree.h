@@ -1,3 +1,4 @@
+#pragma once
 #include <iostream>
 
 #include "binaryTree.h"
@@ -33,6 +34,9 @@ class linkedBinaryTree : public binaryTree<binaryTreeNode<E> > {
     treeSize = 0;
   };
 
+  // 建树
+  void makeTree(const E& element, linkedBinaryTree<E>& left,
+                linkedBinaryTree<E>& right);
   // 前序输出函数
   void preOrderOutput() {
     preOrder(output);
@@ -69,7 +73,6 @@ class linkedBinaryTree : public binaryTree<binaryTreeNode<E> > {
 template <typename E>
 void (*linkedBinaryTree<E>::visit)(binaryTreeNode<E>*);
 
-
 // 成员遍历函数,接受一个访问函数，按照前序遍历访问
 template <typename E>
 void linkedBinaryTree<E>::preOrder(void (*theVisit)(binaryTreeNode<E>*)) {
@@ -95,6 +98,17 @@ linkedBinaryTree<E>::linkedBinaryTree(binaryTreeNode<E>* theRoot) {
   root = theRoot;
   treeSize = 0;
 };
+
+template <class E>
+void linkedBinaryTree<E>::makeTree(const E& element, linkedBinaryTree<E>& left,
+                                   linkedBinaryTree<E>& right) {  // 建树
+  root = new binaryTreeNode<E>(element, left.root, right.root);
+  treeSize = left.treeSize + right.treeSize + 1;
+
+  // 消除原来的树
+  left.root = right.root = NULL;
+  left.treeSize = right.treeSize = 0;
+}
 
 // 前序遍历
 template <typename E>

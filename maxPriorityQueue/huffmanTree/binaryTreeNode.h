@@ -1,7 +1,7 @@
 #pragma once
 #include <iostream>
 
-#include "arrayQueue/arrayQueue.h"
+#include "arrayQueue.h"
 
 template <typename T>
 struct binaryTreeNode {
