@@ -37,3 +37,5 @@
 - [tournamentTree（竞赛树）]()
 - - [winnerTree（赢者树）](https://github.com/SeanChan0901/DataStructure/tree/master/tournamentTree/winnerTree)
 - - [optimal packing（应用：最优装载）](https://github.com/SeanChan0901/DataStructure/tree/master/tournamentTree/firstFitPack)
+- [binarySearchTree（二叉搜索树）]()
+- - [binarySearchTree（二叉搜索树）](https://github.com/SeanChan0901/DataStructure/tree/master/binarySearchTree/binarySearchTree)
