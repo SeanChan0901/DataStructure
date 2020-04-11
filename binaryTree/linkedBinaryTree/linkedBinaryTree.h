@@ -4,6 +4,13 @@
 #include "binaryTree.h"
 #include "binaryTreeNode.h"
 
+// 为pair重载<<
+template <class K, class E>
+std::ostream& operator<<(std::ostream& out, const std::pair<K, E>& x) {
+  out << x.first << ' ' << x.second;
+  return out;
+}
+
 template <typename E>
 class linkedBinaryTree : public binaryTree<binaryTreeNode<E> > {
  public:
@@ -55,7 +62,7 @@ class linkedBinaryTree : public binaryTree<binaryTreeNode<E> > {
     std::cout << std::endl;
   };
 
- private:
+ protected:
   binaryTreeNode<E>* root;                      // 根节点
   int treeSize;                                 // 树的节点个数
   static void (*visit)(binaryTreeNode<E>*);     // 访问函数
@@ -69,6 +76,9 @@ class linkedBinaryTree : public binaryTree<binaryTreeNode<E> > {
     std::cout << t->element << " ";
   };  // 输出函数，输出一个节点
 };
+
+//template<>
+//void linkedBinaryTree<std::pair<int,char> >::output(binaryTreeNode<std::pair<int,char> >* t);
 
 template <typename E>
 void (*linkedBinaryTree<E>::visit)(binaryTreeNode<E>*);
@@ -117,7 +127,7 @@ void linkedBinaryTree<E>::preOrder(binaryTreeNode<E>* t) {
   if (t != NULL) {
     linkedBinaryTree<E>::visit(t);  // 访问
     preOrder(t->leftChild);         // 遍历左子树
-    preOrder(t->rightChile);        // 遍历右子树
+    preOrder(t->rightChild);        // 遍历右子树
   }
 };
 
@@ -127,7 +137,7 @@ void linkedBinaryTree<E>::postOrder(binaryTreeNode<E>* t) {
   // 遍历二叉树t
   if (t != NULL) {
     postOrder(t->leftChild);        // 遍历左子树
-    postOrder(t->rightChile);       // 遍历右子树
+    postOrder(t->rightChild);       // 遍历右子树
     linkedBinaryTree<E>::visit(t);  // 访问
   }
 };
@@ -136,9 +146,9 @@ void linkedBinaryTree<E>::postOrder(binaryTreeNode<E>* t) {
 template <typename E>
 void linkedBinaryTree<E>::inOrder(binaryTreeNode<E>* t) {
   if (t != NULL) {
-    inOrder(t);                     // 遍历左子树
+    inOrder(t->leftChild);                     // 遍历左子树
     linkedBinaryTree<E>::visit(t);  // 访问
-    inOrder(t);                     // 遍历右子树
+    inOrder(t->rightChild);                     // 遍历右子树
   }
 };
 
@@ -155,8 +165,8 @@ void linkedBinaryTree<E>::levelOrder(void (*visit)(binaryTreeNode<E>*)) {
     if (t->leftChild != NULL) {
       q.push(t->leftChild);
     }
-    if (t->rightChile != NULL) {
-      q.push(t->rightChile);
+    if (t->rightChild != NULL) {
+      q.push(t->rightChild);
     }
 
     // 提取下一个要访问的节点

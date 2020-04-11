@@ -1,7 +1,15 @@
+#pragma once
 #include <iostream>
 
 #include "binaryTree.h"
 #include "binaryTreeNode.h"
+
+// 为pair重载<<
+template <class K, class E>
+std::ostream& operator<<(std::ostream& out, const std::pair<K, E>& x) {
+  out << x.first << ' ' << x.second;
+  return out;
+}
 
 template <typename E>
 class linkedBinaryTree : public binaryTree<binaryTreeNode<E> > {
@@ -33,6 +41,9 @@ class linkedBinaryTree : public binaryTree<binaryTreeNode<E> > {
     treeSize = 0;
   };
 
+  // 建树
+  void makeTree(const E& element, linkedBinaryTree<E>& left,
+                linkedBinaryTree<E>& right);
   // 前序输出函数
   void preOrderOutput() {
     preOrder(output);
@@ -66,9 +77,11 @@ class linkedBinaryTree : public binaryTree<binaryTreeNode<E> > {
   };  // 输出函数，输出一个节点
 };
 
+//template<>
+//void linkedBinaryTree<std::pair<int,char> >::output(binaryTreeNode<std::pair<int,char> >* t);
+
 template <typename E>
 void (*linkedBinaryTree<E>::visit)(binaryTreeNode<E>*);
-
 
 // 成员遍历函数,接受一个访问函数，按照前序遍历访问
 template <typename E>
@@ -96,6 +109,17 @@ linkedBinaryTree<E>::linkedBinaryTree(binaryTreeNode<E>* theRoot) {
   treeSize = 0;
 };
 
+template <class E>
+void linkedBinaryTree<E>::makeTree(const E& element, linkedBinaryTree<E>& left,
+                                   linkedBinaryTree<E>& right) {  // 建树
+  root = new binaryTreeNode<E>(element, left.root, right.root);
+  treeSize = left.treeSize + right.treeSize + 1;
+
+  // 消除原来的树
+  left.root = right.root = NULL;
+  left.treeSize = right.treeSize = 0;
+}
+
 // 前序遍历
 template <typename E>
 void linkedBinaryTree<E>::preOrder(binaryTreeNode<E>* t) {
@@ -122,9 +146,9 @@ void linkedBinaryTree<E>::postOrder(binaryTreeNode<E>* t) {
 template <typename E>
 void linkedBinaryTree<E>::inOrder(binaryTreeNode<E>* t) {
   if (t != NULL) {
-    inOrder(t);                     // 遍历左子树
+    inOrder(t->leftChild);                     // 遍历左子树
     linkedBinaryTree<E>::visit(t);  // 访问
-    inOrder(t);                     // 遍历右子树
+    inOrder(t->rightChild);                     // 遍历右子树
   }
 };
 

@@ -8,13 +8,12 @@ struct binaryTreeNode {
   binaryTreeNode<T>* leftChild;   // 左孩子
   binaryTreeNode<T>* rightChild;  // 右孩子
   binaryTreeNode() { leftChild = rightChild = NULL; };
-  binaryTreeNode(const T& theElement) {
-    element = theElement;
+  binaryTreeNode(const T& theElement) : element(theElement) {
     leftChild = rightChild = NULL;
   };
   binaryTreeNode(const T& theElement, binaryTreeNode<T>* theLeftChild,
-                 binaryTreeNode<T>* theRightChild) {
-    element = theElement;
+                 binaryTreeNode<T>* theRightChild)
+      : element(theElement) {
     leftChild = theLeftChild;
     rightChild = theRightChild;
   };
