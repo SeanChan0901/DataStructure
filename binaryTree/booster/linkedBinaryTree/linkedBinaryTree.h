@@ -19,7 +19,6 @@ class linkedBinaryTree : public binaryTree<binaryTreeNode<E> > {
     root = NULL;
     treeSize = 0;
   };
-  linkedBinaryTree(binaryTreeNode<E>* theRoot);
   ~linkedBinaryTree() { erase(); };
 
   // 工具函数
@@ -34,7 +33,8 @@ class linkedBinaryTree : public binaryTree<binaryTreeNode<E> > {
   void postOrder(void (*theVisit)(binaryTreeNode<E>*));
   // 成员遍历函数,接受一个访问函数，按照层次序遍历访问
   void levelOrder(void (*)(binaryTreeNode<E>*));
-
+  // 获取树的高度
+  int height() { return height(root); };
   void erase() {  // 后续遍历删除一棵树
     postOrder(dispose);
     root = NULL;
@@ -69,6 +69,12 @@ class linkedBinaryTree : public binaryTree<binaryTreeNode<E> > {
   static void preOrder(binaryTreeNode<E>* t);   // 前序
   static void inOrder(binaryTreeNode<E>* t);    // 中序
   static void postOrder(binaryTreeNode<E>* t);  // 后序
+  static int height(binaryTreeNode<E>* t) {
+    if (t != NULL)
+      return t->height;
+    else
+      return 0;
+  };
   static void dispose(binaryTreeNode<E>* t) {
     delete t;
   }  // 删除函数：删除一个节点
@@ -77,8 +83,9 @@ class linkedBinaryTree : public binaryTree<binaryTreeNode<E> > {
   };  // 输出函数，输出一个节点
 };
 
-//template<>
-//void linkedBinaryTree<std::pair<int,char> >::output(binaryTreeNode<std::pair<int,char> >* t);
+// template<>
+// void linkedBinaryTree<std::pair<int,char>
+// >::output(binaryTreeNode<std::pair<int,char> >* t);
 
 template <typename E>
 void (*linkedBinaryTree<E>::visit)(binaryTreeNode<E>*);
@@ -102,23 +109,18 @@ void linkedBinaryTree<E>::postOrder(void (*theVisit)(binaryTreeNode<E>*)) {
   postOrder(root);
 };
 
-// 构造函数
-template <typename E>
-linkedBinaryTree<E>::linkedBinaryTree(binaryTreeNode<E>* theRoot) {
-  root = theRoot;
-  treeSize = 0;
-};
-
 template <class E>
 void linkedBinaryTree<E>::makeTree(const E& element, linkedBinaryTree<E>& left,
                                    linkedBinaryTree<E>& right) {  // 建树
   root = new binaryTreeNode<E>(element, left.root, right.root);
+  root->height =
+      ((left.height() > right.height() ? left.height() : right.height()) + 1);
   treeSize = left.treeSize + right.treeSize + 1;
 
   // 消除原来的树
   left.root = right.root = NULL;
   left.treeSize = right.treeSize = 0;
-}
+};
 
 // 前序遍历
 template <typename E>
@@ -146,9 +148,9 @@ void linkedBinaryTree<E>::postOrder(binaryTreeNode<E>* t) {
 template <typename E>
 void linkedBinaryTree<E>::inOrder(binaryTreeNode<E>* t) {
   if (t != NULL) {
-    inOrder(t->leftChild);                     // 遍历左子树
+    inOrder(t->leftChild);          // 遍历左子树
     linkedBinaryTree<E>::visit(t);  // 访问
-    inOrder(t->rightChild);                     // 遍历右子树
+    inOrder(t->rightChild);         // 遍历右子树
   }
 };
 
