@@ -11,10 +11,10 @@ class binarySearchTree : public bsTree<K, E>,
   bool empty() const { return this->treeSize == 0; };
   int size() const { return this->treeSize; }
   std::pair<const K, E>* find(const K& theKey) const;
-  void insert(const std::pair<const K, E>& thePair);
+  void insert(const std::pair<const K, E>& thePair);  // 非递归插入
   void erase(const K& theKey);
 
-  // 升序输出
+  // 升序
   void ascend() { this->inOrderOutput(); }  // 中序遍历就完事了
 };
 

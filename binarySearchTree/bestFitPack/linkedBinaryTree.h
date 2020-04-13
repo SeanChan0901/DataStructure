@@ -34,7 +34,6 @@ class linkedBinaryTree : public binaryTree<binaryTreeNode<E> > {
   // 成员遍历函数,接受一个访问函数，按照层次序遍历访问
   void levelOrder(void (*)(binaryTreeNode<E>*));
   // 获取树的高度
-  int height() { return height(root); };
   void erase() {  // 后续遍历删除一棵树
     postOrder(dispose);
     root = NULL;
@@ -69,12 +68,6 @@ class linkedBinaryTree : public binaryTree<binaryTreeNode<E> > {
   static void preOrder(binaryTreeNode<E>* t);   // 前序
   static void inOrder(binaryTreeNode<E>* t);    // 中序
   static void postOrder(binaryTreeNode<E>* t);  // 后序
-  static int height(binaryTreeNode<E>* t) {
-    if (t != NULL)
-      return t->height;
-    else
-      return 0;
-  };
   static void dispose(binaryTreeNode<E>* t) {
     delete t;
   }  // 删除函数：删除一个节点
@@ -113,8 +106,6 @@ template <class E>
 void linkedBinaryTree<E>::makeTree(const E& element, linkedBinaryTree<E>& left,
                                    linkedBinaryTree<E>& right) {  // 建树
   root = new binaryTreeNode<E>(element, left.root, right.root);
-  root->height =
-      ((left.height() > right.height() ? left.height() : right.height()) + 1);
   treeSize = left.treeSize + right.treeSize + 1;
 
   // 消除原来的树

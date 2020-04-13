@@ -9,11 +9,12 @@ struct binaryTreeNode {
   binaryTreeNode<T>* leftChild;   // 左孩子
   binaryTreeNode<T>* rightChild;  // 右孩子
   binaryTreeNode() { leftChild = rightChild = NULL; };
-  binaryTreeNode(const T& theElement):element(theElement) {
+  binaryTreeNode(const T& theElement) : element(theElement) {
     leftChild = rightChild = NULL;
   };
   binaryTreeNode(const T& theElement, binaryTreeNode<T>* theLeftChild,
-                 binaryTreeNode<T>* theRightChild) :element(theElement){
+                 binaryTreeNode<T>* theRightChild)
+      : element(theElement) {
     leftChild = theLeftChild;
     rightChild = theRightChild;
   };
@@ -33,7 +34,7 @@ void preOrder(binaryTreeNode<T>* t) {
   if (t != NULL) {
     a_visit(t);               // 访问
     preOrder(t->leftChild);   // 遍历左子树
-    preOrder(t->rightChild);  // 遍历右子树
+    preOrder(t->rightChile);  // 遍历右子树
   }
 };
 
@@ -43,7 +44,7 @@ void postOrder(binaryTreeNode<T>* t) {
   // 遍历二叉树t
   if (t != NULL) {
     postOrder(t->leftChild);   // 遍历左子树
-    postOrder(t->rightChild);  // 遍历右子树
+    postOrder(t->rightChile);  // 遍历右子树
     a_visit(t);                // 访问
   }
 };
@@ -54,7 +55,7 @@ void inOrder(binaryTreeNode<E>* t) {
   if (t != NULL) {
     inOrder(t->leftChild);   // 遍历左子树
     a_visit(t);              // 访问
-    inOrder(t->rightChild);  // 遍历右子树
+    inOrder(t->rightChile);  // 遍历右子树
   }
 };
 
@@ -70,8 +71,8 @@ void levelOrder(binaryTreeNode<T>* t) {
     if (t->leftChild != NULL) {
       q.push(t->leftChild);
     }
-    if (t->rightChild != NULL) {
-      q.push(t->rightChild);
+    if (t->rightChile != NULL) {
+      q.push(t->rightChile);
     }
 
     // 提取下一个要访问的节点

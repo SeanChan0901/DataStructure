@@ -7,17 +7,16 @@ template <typename T>
 struct binaryTreeNode {
   T element;                      // 储存的元素
   binaryTreeNode<T>* leftChild;   // 左孩子
-  binaryTreeNode<T>* rightChile;  // 右孩子
-  binaryTreeNode() { leftChild = rightChile = NULL; };
-  binaryTreeNode(const T& theElement) {
-    element = theElement;
-    leftChild = rightChile = NULL;
+  binaryTreeNode<T>* rightChild;  // 右孩子
+  binaryTreeNode() { leftChild = rightChild = NULL; };
+  binaryTreeNode(const T& theElement) : element(theElement) {
+    leftChild = rightChild = NULL;
   };
   binaryTreeNode(const T& theElement, binaryTreeNode<T>* theLeftChild,
-                 binaryTreeNode<T>* theRightChild) {
-    element = theElement;
+                 binaryTreeNode<T>* theRightChild)
+      : element(theElement) {
     leftChild = theLeftChild;
-    rightChile = theRightChild;
+    rightChild = theRightChild;
   };
 };
 

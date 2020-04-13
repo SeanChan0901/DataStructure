@@ -22,7 +22,6 @@ int main() {
   f_binaryTree.makeTree('/', c_binaryTree, d_binaryTree);
   g_binaryTree.makeTree('+', e_binaryTree, f_binaryTree);
 
-  cout << "tree height is " << g_binaryTree.height() << endl;
   g_binaryTree.preOrderOutput();
   g_binaryTree.inOrderOutput();
   g_binaryTree.postOrderOutput();
