@@ -1,12 +1,13 @@
-#include "binarySearchTree.h"
+#include "AVLTree.h"
 
 #include <iostream>
 
-#include "AVLTree.h"
+#include "binarySearchTree.h"
 
 using namespace std;
 
 int main() {
+  // test insert
   AVLTree<int, char> a_bsTree;
   a_bsTree.insert(pair<int, char>(2, 'a'));
   a_bsTree.insert(pair<int, char>(5, 'b'));
@@ -22,7 +23,11 @@ int main() {
   a_bsTree.insert(pair<int, char>(29, 'z'));
 
   a_bsTree.inOrderOutput();
-  cout << "tree height is : " << a_bsTree.height()<<endl;
-  cout<<"key "<<29<<" is "<<a_bsTree.find(29)->second;
+  cout << "tree height is : " << a_bsTree.height() << endl;
+  cout << "key " << 29 << " is " << a_bsTree.find(29)->second << endl;
+
+  a_bsTree.erase(80);
+  a_bsTree.inOrderOutput();
+  cout << "tree height is : " << a_bsTree.height() << endl;
   return 0;
 };
