@@ -41,3 +41,5 @@
 - - [binarySearchTree（二叉搜索树）](https://github.com/SeanChan0901/DataStructure/tree/master/binarySearchTree/binarySearchTree)
 - - [histogram（应用：直方图）](https://github.com/SeanChan0901/DataStructure/tree/master/binarySearchTree/Histogram)
 - - [optimal packing - bestFitPack（应用：最优装载）](https://github.com/SeanChan0901/DataStructure/tree/master/binarySearchTree/bestFitPack)
+- [balancedSearchTree（平衡搜索树）]()
+- - [AVLTree（AVL树）](https://github.com/SeanChan0901/DataStructure/tree/master/balancedTree/AVLTree)
