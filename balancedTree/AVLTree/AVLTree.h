@@ -7,11 +7,13 @@ class AVLTree : public binarySearchTree<K, E> {
   // 用递归的方式重写了insert方法
   void insert(const std::pair<const K, E>& thePair) {
     insert(this->root, thePair);
+    (this->treeSize)++;
   };
   void erase(const K& theKey) {
     binaryTreeNode<std::pair<const K, E> >* z = find(this->root, theKey);
     if (z != NULL)  // 如果有这个节点存在
       erase(this->root, z);
+    (this->treeSize)--;
   };
   std::pair<const K, E>* find(const K& theKey) const {
     return &(find(this->root, theKey)->element);
@@ -255,10 +257,10 @@ binaryTreeNode<std::pair<const K, E> >* AVLTree<K, E>::erase(
     }
   }
   // 更新树高
-  if(tree!=NULL){
+  if (tree != NULL) {
     tree->height = (std::max(binarySearchTree<K, E>::height(tree->leftChild),
-                           binarySearchTree<K, E>::height(tree->rightChild)) +
-                  1);
+                             binarySearchTree<K, E>::height(tree->rightChild)) +
+                    1);
   }
   return tree;
 };
