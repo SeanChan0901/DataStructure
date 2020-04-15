@@ -3,7 +3,7 @@
 #include "myExceptions.h"
 #include "arrayStack.h"
 
-// 将n个元素从塔x中移动到塔y中借助塔z
+// 将n个元素从塔x中移动到塔y中借助塔z,不借助栈
 void towerOfHanoiWithRescursion(int n, int x, int y, int z) {
   if (n > 0) {
     towerOfHanoiWithRescursion(n - 1, x, z, y);  // 将n-1个碟从x移动到z借助y

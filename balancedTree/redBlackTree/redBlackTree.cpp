@@ -19,5 +19,11 @@ int main() {
   a_bsTree.insert(pair<int, char>(33, 'j'));
   a_bsTree.insert(pair<int, char>(31, 'k'));
   a_bsTree.insert(pair<int, char>(29, 'z'));
-  a_bsTree.inOrderOutputRBTree();
+  a_bsTree.inOrderOutput();
+  cout<<"\n\n\n\n";
+  a_bsTree.deleteMax();
+  a_bsTree.inOrderOutput();
+  cout<<"\n\n\n\n";
+  a_bsTree.erase(35);
+  a_bsTree.inOrderOutput();
 }

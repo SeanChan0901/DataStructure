@@ -12,7 +12,8 @@ using namespace std;
 
 // 测试括号匹配
 void testMatch() {
-  string s{"(3+5+(2-1/(1+1)))"};
+  string s;
+  s="(3+5+(2-1/(1+1)))";
   printMatchPairs(s);
 };
 
@@ -65,10 +66,10 @@ int main() {
   }
 
   // testMatch();
-  // towerOfHanoiWithRescursion(4, 1, 2, 3);
-  // towerOfHanoiWithStack(4, 1, 2, 3);
+  towerOfHanoiWithRescursion(4, 1, 2, 3);
+  towerOfHanoiWithStack(4, 1, 2, 3);
   // railRoadResort();
-  testCheckBox();
+  // testCheckBox();
 
   return 0;
 }

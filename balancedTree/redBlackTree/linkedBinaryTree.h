@@ -55,12 +55,6 @@ class linkedBinaryTree : public binaryTree<binaryTreeNode<E> > {
     std::cout << std::endl;
   };
 
-  // 中序输出函数
-  void inOrderOutputRBTree() {
-    inOrder(outputRedBlackTree);
-    std::cout << std::endl;
-  };
-
 
   // 后续输出函数
   void postOrderOutput() {
@@ -81,15 +75,14 @@ class linkedBinaryTree : public binaryTree<binaryTreeNode<E> > {
   static void output(binaryTreeNode<E>* t) {
     std::cout << t->element << " ";
   };  // 输出函数，输出一个节点
-  static void outputRedBlackTree(binaryTreeNode<E>* t) {
-    std::cout << t->element << " "
-              << (t->color == binaryTreeNode<E>::RED ? "RED" : "BLACK")
-              << std::endl;
-  }
 };
 
 template <typename E>
 void (*linkedBinaryTree<E>::visit)(binaryTreeNode<E>*);
+
+// 显式声明了一个模板函数，为了可以使用他
+template<>
+void linkedBinaryTree<std::pair<int,char> >::inOrder(void (*theVisit)(binaryTreeNode<std::pair<int,char> >*));
 
 // 成员遍历函数,接受一个访问函数，按照前序遍历访问
 template <typename E>
