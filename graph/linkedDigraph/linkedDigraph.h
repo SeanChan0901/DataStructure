@@ -45,7 +45,7 @@ class linkedDigraph : public graph<bool> {
   };
   class myIterator : public vertexIterator<bool> {
    protected:
-    chainNode<int> *currentNode;
+    chainNode<int> *currentNode;  // 邻接节点的位置
 
    public:
     myIterator(chainNode<int> *theNode) { currentNode = theNode; };

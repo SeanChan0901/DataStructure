@@ -51,7 +51,7 @@ class adjacencyWDigraph : public graph<T> {
   bool weighted() const { return true; };  // 当且仅当加权图时，返回值是true
   void output(std::ostream& out) const {
     for (int i = 1; i <= n; i++) {
-      std::copy(adjancecyArray[i]+1, adjancecyArray[i] + n + 1,
+      std::copy(adjancecyArray[i] + 1, adjancecyArray[i] + n + 1,
                 std::ostream_iterator<T>(out, " "));
       out << std::endl;
     }
@@ -61,7 +61,7 @@ class adjacencyWDigraph : public graph<T> {
     T* row;    // 邻接矩阵的行
     T noEdge;  // theRow[i]==noEdge当且仅当没有关联顶点i的边
     int n;     // 顶点数
-    int currentVertex;  // 迭代到的当前顶点
+    int currentVertex;  // 需要迭代到的下一个位置
                         // 图的迭代器
    public:
     myIterator(T* theRow, T theNoedge, int numberOfVertices) {
@@ -81,7 +81,7 @@ class adjacencyWDigraph : public graph<T> {
           return j;
         }
       // 不存在下一个邻接的顶点了
-      currentVertex = n + 1;
+      currentVertex = n + 1;  // 配合checkVertex使用
       return 0;
     };
 
@@ -96,7 +96,7 @@ class adjacencyWDigraph : public graph<T> {
           return j;
         }
       // 不存在下一个邻接的顶点了
-      currentVertex = n + 1;
+      currentVertex = n + 1;  // 配合checkVertex使用
       return 0;
     };
   };
@@ -131,7 +131,8 @@ void adjacencyWDigraph<T>::eraseEdge(int i, int j) {
   // 删除边(i,j)
   if (i >= 1 && j >= 1 && i != j && i <= n && j <= n &&
       adjancecyArray[i][j] != noEdge) {
-    adjancecyArray[i][j] == noEdge;
+    adjancecyArray[i][j] = noEdge;
+    std::cout<<"after erase , a[i][i] = " <<adjancecyArray[i][j]<<std::endl;
     e--;
   }
 };

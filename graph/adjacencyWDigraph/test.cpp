@@ -36,5 +36,10 @@ int main() {
   a_adWDgraph.insertEdge(a_wEdge);
   delete a_wEdge;
   cout << a_adWDgraph << endl;
+
+  a_adWDgraph.eraseEdge(1, 3);
+  cout << a_adWDgraph << endl;
+  cout << a_adWDgraph.outDegree(1) << endl;
+  cout << a_adWDgraph.inDegree(1) << endl;
   return 0;
 };

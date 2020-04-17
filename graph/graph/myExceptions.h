@@ -1,14 +1,17 @@
-#pragma once
+#ifndef myException_
+#define myException_
+
 #include <iostream>
 #include <string>
 
 // 参数不合法
-class IllegalParameterValue {  
+class IllegalParameterValue {
  public:
   IllegalParameterValue(std::string the_message = "Illegal parameter value") {
     message = the_message;
   };
   void outputMessage() { std::cout << message << std::endl; };
+
  private:
   std::string message;
 };
@@ -20,7 +23,8 @@ class IllegalInputData {
     message = the_message;
   };
   void outputMessage() { std::cout << message << std::endl; };
-  private:
+
+ private:
   std::string message;
 };
 
@@ -31,14 +35,16 @@ class IllegalIndex {
     message = the_message;
   };
   void outputMessage() { std::cout << message << std::endl; };
+
  private:
-   std::string message;
+  std::string message;
 };
 
-// matrix index out of bounds 
+// matrix index out of bounds
 class matrixIndexOutOfBounds {
  public:
-  matrixIndexOutOfBounds(std::string theMessage = "Matrix index out of bounds") {
+  matrixIndexOutOfBounds(
+      std::string theMessage = "Matrix index out of bounds") {
     message = theMessage;
   }
   void outputMessage() { std::cout << message << std::endl; }
@@ -119,3 +125,5 @@ class undefinedMethod {
  private:
   std::string message;
 };
+
+#endif
