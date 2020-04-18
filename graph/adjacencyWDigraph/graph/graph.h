@@ -7,6 +7,8 @@
 #include "arrayStack/arrayStack.h"
 #include "binNode.h"
 #include "edge.h"
+#include "fastUnionFind.h"
+#include "minHeap/minHeap.h"
 #include "myExceptions.h"
 #include "vertexIterator.h"
 #include "weightedEdge.h"
@@ -54,8 +56,9 @@ class graph {
   void dfs(int v, int reach[], int label);           // 深度优先遍历
   int *findPath(int theSource, int theDestination);  // 寻找一条路径
   bool connected();  // 判断无向图是否连通图，如果是连通图返回true
-  int lableComponents(int c[]);          // 标记构件
-  bool topologicalOrder(int *theOrder);  // 拓扑排序
+  int lableComponents(int c[]);                      // 标记构件
+  bool topologicalOrder(int *theOrder);              // 拓扑排序
+  bool kruskal(weightedEdge<T> *spanningTreeEdges);  // kruskal算法
 };
 
 template <typename T>
@@ -254,6 +257,59 @@ bool graph<T>::topologicalOrder(int *theOrder) {
   }
   delete[] inDegree;
   return (j == n);
+};
+
+template <typename T>
+bool graph<T>::kruskal(weightedEdge<T> *spanningTreeEdges) {
+  // 使用kruskal方法生成一棵最小生成树
+  // 返回false当且仅当加权无向图是不连通的
+  // 算法结束时，spanningTreeEdge：[0:n-2]存储的是最小生成树的边(共n-1条)
+
+  // 确定是否带权无向图
+  if (directed() || !weighted())
+    throw undefinedMethod(
+        "graph::kruskal() not defined for unweighted and directed graphs");
+
+  int n = numberOfVertices();
+  int e = numberOfEdges();
+
+  // 建立一个数组用来存储边集
+  weightedEdge<T> *edge = new weightedEdge<T>[e + 1];
+  int k = 0;  // 数组edge的索引
+  for (int i = 1; i <= n; i++) {
+    // 取所有关联到i的边
+    vertexIterator<T> *ii = iterator(i);  // 迭代器
+    int j;                                // 下一个邻接点
+    T w;                                  // 存储边的权值
+    while ((j = ii->next(w)) != 0)
+      if (i < j)  // 向数组添加一条,
+        // 确保(无向图确保i->j和j->i是同一条边，不会重复添加）
+        edge[++k] = weightedEdge<T>(i, j, w);
+  }
+
+  // 把边插入小根堆
+  minHeap<weightedEdge<T> > heap(1);
+  heap.initialize(edge, e);
+
+  fastUnionFind uf(n);
+
+  // 按照权的递增顺序提取边
+  k = 0;  // 用于存储索引
+  while (e > 0 && k < n - 1) {
+    // 生成树没有完成且还有边存在
+    weightedEdge<T> x = heap.top();
+    heap.pop();
+    e--;
+    int a = uf.find(x.vertex1());  // 边对应其中一个顶点的类别
+    int b = uf.find(x.vertex2());  // 同上
+
+    if (a != b) {
+      // 不是同一个等价类：加入最小生成树边集
+      spanningTreeEdges[k++] = x;
+      uf.unite(a, b);
+    }
+  }
+  return (k == (n - 1));
 };
 
 template <typename T>

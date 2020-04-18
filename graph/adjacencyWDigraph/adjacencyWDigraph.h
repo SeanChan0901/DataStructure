@@ -254,4 +254,4 @@ void adjacencyWDigraph<T>::shorttestPaths(int sourceVertex,
       }
     }
   }
-}
+};
