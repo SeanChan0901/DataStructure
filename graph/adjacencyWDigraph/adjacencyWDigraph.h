@@ -5,7 +5,8 @@
 #include <iterator>
 #include <sstream>
 
-#include "functionfOfArray.h"
+#include "chain/graphChain.h"
+#include "functionOfArray.h"
 #include "graph/graph.h"
 #include "graph/vertexIterator.h"
 #include "myExceptions.h"
@@ -49,7 +50,9 @@ class adjacencyWDigraph : public graph<T> {
   void checkVertex(int theVertex) const;
   bool directed() const { return true; };  // 当且仅当有向图时，返回值是true
   bool weighted() const { return true; };  // 当且仅当加权图时，返回值是true
-  void output(std::ostream& out) const {
+  void shorttestPaths(int sourceVertex, T* distanceFromSource,
+                      int* predecessor);  // 寻找单源最短路径
+  void output(std::ostream& out) const {  // 输出整个邻接矩阵
     for (int i = 1; i <= n; i++) {
       std::copy(adjancecyArray[i] + 1, adjancecyArray[i] + n + 1,
                 std::ostream_iterator<T>(out, " "));
@@ -132,7 +135,8 @@ void adjacencyWDigraph<T>::eraseEdge(int i, int j) {
   if (i >= 1 && j >= 1 && i != j && i <= n && j <= n &&
       adjancecyArray[i][j] != noEdge) {
     adjancecyArray[i][j] = noEdge;
-    std::cout<<"after erase , a[i][i] = " <<adjancecyArray[i][j]<<std::endl;
+    std::cout << "after erase , a[i][i] = " << adjancecyArray[i][j]
+              << std::endl;
     e--;
   }
 };
@@ -185,3 +189,69 @@ std::ostream& operator<<(std::ostream& out, adjacencyWDigraph<T>& x) {
   x.output(out);
   return out;
 };
+
+template <typename T>
+void adjacencyWDigraph<T>::shorttestPaths(int sourceVertex,
+                                          T* distanceFromSource,
+                                          int* predecessor) {
+  // 寻找从源sourceVertex开始的最短路径
+  // 在数组distanceFromSource中返回最短路径
+  // 在数组predecessor中返回顶点在路径上的前驱
+  if (sourceVertex < 1 || sourceVertex > n)
+    throw IllegalParameterValue("Invalid source vertex");
+
+  // 确认*this是加权图
+  if (!weighted())
+    throw undefinedMethod(
+        "adjacencyWDigraph::shortestPaths() not defined for unweighted graphs");
+
+  graphChain<int> newReachableVertices;
+
+  // 初始化
+  for (int i = 1; i <= n; i++) {
+    distanceFromSource[i] =
+        adjancecyArray[sourceVertex][i];  // 与源点邻接的点与源点的距离
+    if (distanceFromSource[i] == noEdge)
+      predecessor[i] = -1;  // 如果不与源点邻接，则其前驱设为-1
+    else {
+      predecessor[i] = sourceVertex;  //与源点邻接的其前驱设为源点
+      newReachableVertices.insert(0, i);  // 把他放入可到达顶点集中
+    }
+  }
+  distanceFromSource[sourceVertex] = 0;  // 到达其自身的平凡路径长度设为0
+  predecessor[sourceVertex] = 0;         // 源点没有前驱
+
+  // 更新distanceFromSource
+  while (!newReachableVertices.empty()) {
+    // 存在更多的路径
+    // 寻找distanceFromSource最小的，还未在顶点集中的顶点v
+    chain<int>::iterator iNewReachableVertices =
+        newReachableVertices.begin();  // 获取链表的迭代器
+    chain<int>::iterator theEnd = newReachableVertices.end();  // 链表末
+    int v =
+        *iNewReachableVertices;  // 获取当前迭代器位置的节点的元素值(也就是邻接的顶点)
+    iNewReachableVertices++;  // 迭代到下一个位置
+    while (iNewReachableVertices != theEnd) {
+      int w = *iNewReachableVertices;
+      iNewReachableVertices++;
+      if (distanceFromSource[w] < distanceFromSource[v])
+        v = w;  // 找距离源点最近的点，令成v
+    }
+
+    // 下一条最短路径是到达顶点v
+    // 从newReachableVertices删除顶点v，然后更新distanceFromSource
+    newReachableVertices.eraseElement(v);
+    for (int j = 1; j <= n; j++) {
+      if (adjancecyArray[v][j] != noEdge &&
+          (predecessor[j] == -1 ||
+           distanceFromSource[j] >
+               (distanceFromSource[v] + adjancecyArray[v][j]))) {
+        // 更新最短路径
+        distanceFromSource[j] = distanceFromSource[v] + adjancecyArray[v][j];
+        // 把顶点j驾到newReachableVertices中去
+        if (predecessor[j] == -1) newReachableVertices.insert(0, j);
+        predecessor[j] = v;
+      }
+    }
+  }
+}

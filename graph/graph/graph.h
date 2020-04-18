@@ -1,4 +1,5 @@
 #pragma once
+#include <algorithm>
 #include <iostream>
 
 #include "ArrayList/ArrayList.h"
@@ -53,6 +54,8 @@ class graph {
   void dfs(int v, int reach[], int label);           // 深度优先遍历
   int *findPath(int theSource, int theDestination);  // 寻找一条路径
   bool connected();  // 判断无向图是否连通图，如果是连通图返回true
+  int lableComponents(int c[]);          // 标记构件
+  bool topologicalOrder(int *theOrder);  // 拓扑排序
 };
 
 template <typename T>
@@ -113,8 +116,8 @@ int *graph<T>::findPath(int theSource, int theDestination) {
   // 如果不存在这样的路径返回NULL
   int n = numberOfVertices();
   path = new int[n + 1];  // 默认0是未经过的路径
-  path[1] = theSource;  // 第一个顶点
-  length = 1;           //当前的路径长度+1
+  path[1] = theSource;    // 第一个顶点
+  length = 1;             //当前的路径长度+1
   destination = theDestination;
   reach = new int[n + 1];
   for (int i = 1; i <= n; i++) {
@@ -128,7 +131,7 @@ int *graph<T>::findPath(int theSource, int theDestination) {
     delete[] path;  // 没有这样的路径
     path = NULL;
   }
-  
+
   delete[] reach;
   return path;
 };
@@ -172,23 +175,104 @@ bool graph<T>::connected() {
   return true;
 };
 
-template<typename T>
-int* graph<T>::reach;
+template <typename T>
+int graph<T>::lableComponents(int c[]) {
+  // 给无向图的标记构件
+  // 返回构件的个数
+  // 令c[i]是顶点i的构件号
 
-template<typename T>
+  //  确定是一个无向图
+  if (directed())
+    throw undefinedMethod(
+        "graph::labelComponents() not defined for directed graphs");
+
+  int n = numberOfVertices();
+
+  // 令所有顶点是非构件
+  for (int i = 1; i <= n; i++) c[i] = 0;
+
+  label = 0;  // 最后一个构件的编号
+  // 确定构件
+  // 每一个构件都用一次广度遍历（用深度遍历也可以）
+  for (int i = 1; i <= n; i++)
+    if (c[i] == 0) {
+      // 顶点i未到达
+      // 顶点i是一个新构件
+      label++;
+      bfs(i, c, label);
+    }
+
+  return label;
+};
+
+template <typename T>
+bool graph<T>::topologicalOrder(int *theOrder) {
+  // 返回false当且仅当图没有拓扑序列（有环）
+  // 如果存在一个拓扑序列，将其赋给theOrder[0:n-1]
+
+  // 确定有向图
+  if (!directed())
+    throw undefinedMethod(
+        "graph::topologicalOrder() not defined for undirected graphs");
+
+  int n = numberOfVertices();
+
+  // 计算入度
+  int *inDegree = new int[n + 1];
+  std::fill(inDegree, inDegree + n + 1, 0);
+
+  // 初始化图的所有入度
+  for (int i = 1; i <= n; i++) {
+    // 顶点i的出边
+    vertexIterator<T> *ii = iterator(i);
+    int u;
+    while ((u = ii->next()) != 0)
+      // 访问i的邻接点
+      inDegree[u]++;
+  }
+
+  // 把入度为0的顶点加入栈中
+  arrayStack<int> stack;
+  for (int i = 1; i <= n; i++)
+    if (inDegree[i] == 0) stack.push(i);
+
+  // 生成拓扑序列
+  int j = 0;  // 数组theOrder的索引
+  while (!stack.empty()) {
+    // 从栈中提取顶点
+    int nextVertexInTopolocicalOrder = stack.top();
+    stack.pop();
+    theOrder[j++] = nextVertexInTopolocicalOrder;
+
+    // 更新入度
+    vertexIterator<T> *iNextVertex = iterator(nextVertexInTopolocicalOrder);
+    int u;
+    while ((u = iNextVertex->next()) != 0) {
+      inDegree[u]--;
+      if (inDegree[u] == 0) stack.push(u);
+    }
+  }
+  delete[] inDegree;
+  return (j == n);
+};
+
+template <typename T>
+int *graph<T>::reach;
+
+template <typename T>
 int graph<T>::label;
 
-template<typename T>
-int* graph<T>::path;
+template <typename T>
+int *graph<T>::path;
 
-template<typename T>
+template <typename T>
 int graph<T>::length;
 
-template<typename T>
+template <typename T>
 int graph<T>::destination;
 
-template<typename T>
-int* graph<T>::bin;
+template <typename T>
+int *graph<T>::bin;
 
-template<typename T>
-binNode* graph<T>::node;
+template <typename T>
+binNode *graph<T>::node;

@@ -1,11 +1,12 @@
-#pragma once
+#ifndef weightedEdge_
+#define weightedEdge_
 #include <iostream>
 
 #include "graph/edge.h"
 
 // 权重边
 template <typename T>
-class weightedEdge : public edge<T>{
+class weightedEdge : public edge<T> {
  private:
   int v1;  // 边的一个顶点
   int v2;  // 边的一个顶点
@@ -31,3 +32,5 @@ std::ostream& operator<<(std::ostream& out, weightedEdge<T>& x) {
   x.output(out);
   return out;
 };
+
+#endif
