@@ -113,9 +113,6 @@ template <class E>
 void linkedBinaryTree<E>::makeTree(const E& element, linkedBinaryTree<E>& left,
                                    linkedBinaryTree<E>& right) {  // 建树
   root = new binaryTreeNode<E>(element, left.root, right.root);
-  root->height =
-      ((left.height() > right.height() ? left.height() : right.height()) + 1);
-  treeSize = left.treeSize + right.treeSize + 1;
 
   // 消除原来的树
   left.root = right.root = NULL;

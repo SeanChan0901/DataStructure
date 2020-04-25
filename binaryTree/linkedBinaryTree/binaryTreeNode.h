@@ -41,7 +41,7 @@ void preOrder(binaryTreeNode<T>* t) {
 //后续遍历
 template <typename T>
 void postOrder(binaryTreeNode<T>* t) {
-  // 遍历二叉树t
+  // 遍历二叉树 *t
   if (t != NULL) {
     postOrder(t->leftChild);   // 遍历左子树
     postOrder(t->rightChile);  // 遍历右子树
@@ -52,6 +52,7 @@ void postOrder(binaryTreeNode<T>* t) {
 // 中序遍历
 template <typename E>
 void inOrder(binaryTreeNode<E>* t) {
+  // 遍历二叉树 *t
   if (t != NULL) {
     inOrder(t->leftChild);   // 遍历左子树
     a_visit(t);              // 访问

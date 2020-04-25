@@ -25,7 +25,7 @@ void placeBoosters(binaryTreeNode<booster>* x) {
       x->element.degradeToLeaf =
           degradation;  // 在x处的衰减量大于容忍值，则更新衰减量
   }
-  y = x->rightChile;
+  y = x->rightChild;
   if (y != NULL) {
     // x有一棵右子树
     int degradation = y->element.degradeToLeaf + y->element.degradeFromParent;
@@ -74,7 +74,7 @@ int main() {
   // 后缀设置信号放大器
   v.postOrder(placeBoosters);
   // 后缀输出
-  v.postOrderOutput();
+  // v.postOrderOutput();
 
   return 0;
 }
