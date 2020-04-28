@@ -43,7 +43,7 @@
 - - [optimal packing - bestFitPack（应用：最优装载）](https://github.com/SeanChan0901/DataStructure/tree/master/binarySearchTree/bestFitPack)
 - [balancedSearchTree（平衡搜索树）]()
 - - [AVLTree（AVL树）](https://github.com/SeanChan0901/DataStructure/tree/master/balancedTree/AVLTree)
-- - [redBlackTree（红黑树）](#data-strutures-in-c%e7%9b%ae%e5%bd%95)
+- - [redBlackTree（红黑树）](https://github.com/SeanChan0901/DataStructure/tree/master/balancedTree/redBlackTree)
 - [graph（图）]()
 - - [graph（图）](https://github.com/SeanChan0901/DataStructure/tree/master/graph/graph)
 - - [adjacencyDiGraph（加权有向图：邻接矩阵描述）](https://github.com/SeanChan0901/DataStructure/tree/master/graph/adjacencyWDigraph)
