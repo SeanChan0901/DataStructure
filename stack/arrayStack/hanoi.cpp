@@ -11,4 +11,7 @@ int main() {
   cout << "enter the number of disks" << endl;
   cin >> numOfDisks;
   towerOfHanoiWithStack(numOfDisks, 1, 2, 3);
+
+  cout << "\n\n Rescursion with no stack : \n";
+  towerOfHanoi(numOfDisks, 1, 2, 3);
 };

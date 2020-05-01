@@ -1,5 +1,5 @@
 # Data Strutures in C++：目录
-- [LinearList（线性表）](#data-strutures-in-c)
+- [LinearList（线性表）]()
 - - [ArrayList （线性表数组描述）](https://github.com/SeanChan0901/DataStructure/tree/master/LinearList/ArrayList)
 - - [Chain （线性表链式描述）](https://github.com/SeanChan0901/DataStructure/tree/master/LinearList/chain)
 - - [circularList （循环链表）](https://github.com/SeanChan0901/DataStructure/tree/master/LinearList/circularList)

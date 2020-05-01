@@ -1,4 +1,6 @@
 #pragma once
+#include <time.h>
+
 #include <iostream>
 
 #include "arrayStack.h"
@@ -36,5 +38,20 @@ void towerOfHanoiWithStack(int n, int x, int y, int z) {
   for (int d = n; d > 0; d--) {
     tower[1].push(d);  // 从大到小依次入栈
   }
+  std::clock_t start, end;
+  start = clock_t();  // 计算时间
   moveAndShow(n, 1, 2, 3);
+  end = clock();
+  std::cout << "finished in " << double(end - start) / CLOCKS_PER_SEC << "s"
+            << std::endl;
 };
+
+// 不用栈存储
+void towerOfHanoi(int n, int x, int y, int z) {
+  std::clock_t start, end;
+  start = clock_t();  // 计算时间
+  towerOfHanoiWithRescursion(n, x, y, z);
+  end = clock();
+  std::cout << "finished in " << double(end - start) / CLOCKS_PER_SEC << "s"
+            << std::endl;
+}
